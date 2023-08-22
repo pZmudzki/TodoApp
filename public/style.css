@@ -1,0 +1,248 @@
+/* COLORS */
+/* 
+PINK: #ae3ec9;
+BLUE: #66d9e8;
+*/
+
+/* font colors 
+main: #868e96
+
+
+*/
+
+/* - Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+/* 
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98 */
+
+/* font weight 
+Regular 400
+Medium 500
+Bold 700
+*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100vh;
+  background-image: linear-gradient(#63e6be, #1864ab);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rubik", sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  font-size: 3.6rem;
+}
+
+/* TODO NAV  */
+
+.todo-nav-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.4rem;
+}
+
+.todo-mode:link,
+.todo-mode:visited {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  width: 50%;
+  padding: 1.2rem 2.4rem;
+  flex-grow: 1;
+  border-radius: 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  color: #495057;
+  transition: all 0.3s;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+}
+
+.todo-mode:hover,
+.todo-mode:active {
+  background-color: #1864ab;
+  color: #fff;
+  width: 70%;
+  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
+}
+
+.active-mode::after {
+  position: absolute;
+  content: "";
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: #1864ab;
+  display: block;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    top: -50%;
+    -webkit-animation-timing-function: ease-in;
+  }
+  40% {
+  }
+  50% {
+    top: -10%;
+    height: 2rem;
+    -webkit-animation-timing-function: ease-out;
+  }
+  55% {
+    top: 0;
+    height: 1.8rem;
+    -webkit-animation-timing-function: ease-in;
+  }
+  65% {
+    top: -20%;
+    height: 2rem;
+    -webkit-animation-timing-function: ease-out;
+  }
+  95% {
+    top: -50%;
+    -webkit-animation-timing-function: ease-in;
+  }
+  100% {
+    top: -50%;
+    -webkit-animation-timing-function: ease-in;
+  }
+}
+
+/* MAIN TODO */
+.todo-list-container {
+  background-color: #fff;
+  border-radius: 0.8rem;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+}
+
+.todo-list-container h1 {
+  color: #343a40;
+  font-weight: 500;
+}
+
+/* ADDING TODO FORM */
+
+.add-todo-form {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: space-between;
+}
+
+.add-todo-form input {
+  font-size: 2.4rem;
+  padding: 0 1.2rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ced4da;
+  flex-grow: 1;
+}
+.add-todo-form input::placeholder {
+  color: #ced4da;
+}
+
+.button-submit {
+  background-color: #1864ab;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button-submit:hover {
+  background-color: #1c7ed6;
+}
+
+.submit-icon {
+  height: 4.8rem;
+  width: 4.8rem;
+  color: #fff;
+}
+
+/* TODO LISTED ITEMS */
+
+.element-list {
+  list-style: none;
+  font-size: 1.8rem;
+  overflow: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 30rem;
+}
+
+.element-listed {
+  display: flex;
+  background-color: #e9ecef;
+  justify-content: space-between;
+  /* align-items: center; */
+  border-radius: 0.4rem;
+}
+
+.element-description {
+  padding: 1.2rem;
+  max-width: 50rem;
+}
+
+.btn-delete {
+  background-color: #fa5252;
+  border: none;
+  margin: 0;
+  border-radius: 0.4rem;
+  padding: 0.8rem 1rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: translateX(6rem);
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.element-listed:hover .btn-delete {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.delete-todo-icon {
+  height: 2.8rem;
+  width: 2.8rem;
+  color: #fff;
+}
+
+/* TODO FOOTER */
+
+.todo-footer {
+  display: flex;
+  font-size: 1.8rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2.4rem 0;
+}
+
+.btn-clear {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1.2rem 2.4rem;
+}
