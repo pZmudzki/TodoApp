@@ -195,12 +195,17 @@ body {
 .element-list {
   list-style: none;
   font-size: 1.8rem;
-  overflow: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   max-height: 30rem;
+  overflow: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+.element-list > .element-listed{
+  scroll-snap-align: start none;
 }
 
 .element-listed {

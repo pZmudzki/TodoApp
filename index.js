@@ -75,7 +75,7 @@ app.get("/removeWork", (req, res) => {
 
 app.post("/removeWork", (req, res) => {
   tasksWork = [];
-  res.redirect("/");
+  res.redirect("/work");
 });
 
 app.listen(port, () => {
