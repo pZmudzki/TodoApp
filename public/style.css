@@ -47,6 +47,16 @@ body {
   flex-direction: column;
   gap: 2.4rem;
   font-size: 3.6rem;
+  animation: 0.3s ease-in showingAppOnLoad;
+}
+
+@keyframes showingAppOnLoad {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
 }
 
 /* TODO NAV  */
