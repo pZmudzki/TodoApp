@@ -51,10 +51,10 @@ body {
 }
 
 @keyframes showingAppOnLoad {
-  0%{
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }
@@ -204,7 +204,7 @@ body {
   overscroll-behavior-y: contain;
   scroll-snap-type: y mandatory;
 }
-.element-list > .element-listed{
+.element-list > .element-listed {
   scroll-snap-align: start none;
 }
 
