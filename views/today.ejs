@@ -1,4 +1,4 @@
-<%- include("partials/header.ejs")  %>
+<%- include("partials/header.ejs") %>
 
 <main class="app-container">
   <section class="todo-nav-container">
@@ -7,52 +7,54 @@
   </section>
   <section class="todo-list-container">
     <h1>Todo App</h1>
-        <form action="/" method="post" class="add-todo-form">
-          <input
-            type="text"
-            name="todoInput"
-            id="todo-input"
-            placeholder="Add your new todo"
-            required
-          />
-          <button type="submit" class="button-submit">
-            <ion-icon name="add-outline" class="submit-icon"></ion-icon>
+    <form action="/" method="post" class="add-todo-form">
+      <input
+        type="text"
+        name="todoInput"
+        id="todo-input"
+        placeholder="Add your new todo"
+        required
+      />
+      <button type="submit" class="button-submit">
+        <ion-icon name="add-outline" class="submit-icon"></ion-icon>
+      </button>
+    </form>
+    <ul class="element-list">
+      <% if(locals.tasksToday) {%> <% for(var i = 0; i< tasksToday.length; i++){
+      %> <% if(tasksToday[i] !== undefined) {%>
+      <li class="element-listed">
+        <div class="element-description">
+          <p><%= tasksToday[i].content %></p>
+        </div>
+        <form action="/" method="post">
+          <button
+            type="submit"
+            name="delete"
+            value="<%= tasksToday[i]._id %>"
+            class="btn-delete"
+          >
+            <ion-icon name="trash-outline" class="delete-todo-icon"></ion-icon>
           </button>
         </form>
-        <ul class="element-list">
-          <% if(locals.tasksToday) {%>
-            <% for(var i = 0; i< tasksToday.length; i++){ %>
-              <% if(tasksToday[i] !== undefined) {%>
-          <li class="element-listed">
-            <div class="element-description">
-              <p> <%= tasksToday[i] %> </p>
-            </div>
-          <form action="/" method="post">
-            <button type="submit" name="delete" value="<%= tasksToday[i] %>" class="btn-delete">
-              <ion-icon
-              name="trash-outline"
-              class="delete-todo-icon"
-              ></ion-icon>
-            </button>
-          </form>
-          </li> 
-                <% } %>
-              <% } %>
-            <% } %>
-        </ul>
-        <div class="todo-footer">
-          <p>You have 
-            <% if(locals.tasksToday) {%>
-            <%= tasksToday.length %>
-            <% } else {%>
-              0
-              <% } %>
-            pending tasks </p>
-          <form action="/remove" method="post">
-            <button type="submit" class="button-submit btn-clear" name="alltaskdelete">
-              Clear All
-            </button>
-          </form>
-        </div>
+      </li>
+      <% } %> <% } %> <% } %>
+    </ul>
+    <div class="todo-footer">
+      <p>
+        You have <% if(locals.tasksToday) {%> <%= tasksToday.length %> <% } else
+        {%> 0 <% } %> pending tasks
+      </p>
+      <form action="/remove" method="post">
+        <button
+          type="submit"
+          class="button-submit btn-clear"
+          name="alltaskdelete"
+        >
+          Clear All
+        </button>
+      </form>
+    </div>
 
-        <%- include("partials/footer.ejs")  %>
+    <%- include("partials/footer.ejs") %>
+  </section>
+</main>
