@@ -2,12 +2,12 @@
 
 <main class="app-container">
   <section class="todo-nav-container">
-    <a href="/" class="todo-mode active-mode">Today</a>
+    <a href="/today" class="todo-mode active-mode">Today</a>
     <a href="/work" class="todo-mode">Work</a>
   </section>
   <section class="todo-list-container">
     <h1>Todo App</h1>
-    <form action="/" method="post" class="add-todo-form">
+    <form action="/today" method="post" class="add-todo-form">
       <input
         type="text"
         name="todoInput"
@@ -20,17 +20,17 @@
       </button>
     </form>
     <ul class="element-list">
-      <% if(locals.tasksToday) {%> <% for(var i = 0; i< tasksToday.length; i++){
-      %> <% if(tasksToday[i] !== undefined) {%>
+      <% if(locals.tasks) {%> <% for(var i = 0; i< tasks.length; i++){ %> <%
+      if(tasks[i] !== undefined) {%>
       <li class="element-listed">
         <div class="element-description">
-          <p><%= tasksToday[i].content %></p>
+          <p><%= tasks[i].content %></p>
         </div>
-        <form action="/" method="post">
+        <form action="/today/deleteTask" method="post">
           <button
             type="submit"
             name="delete"
-            value="<%= tasksToday[i]._id %>"
+            value="<%= tasks[i]._id %>"
             class="btn-delete"
           >
             <ion-icon name="trash-outline" class="delete-todo-icon"></ion-icon>
@@ -41,10 +41,10 @@
     </ul>
     <div class="todo-footer">
       <p>
-        You have <% if(locals.tasksToday) {%> <%= tasksToday.length %> <% } else
-        {%> 0 <% } %> pending tasks
+        You have <% if(locals.tasks) {%> <%= tasks.length %> <% } else {%> 0 <%
+        } %> pending tasks
       </p>
-      <form action="/remove" method="post">
+      <form action="/today/clearAll" method="post">
         <button
           type="submit"
           class="button-submit btn-clear"

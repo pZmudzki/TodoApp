@@ -4,8 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // import mongoose from "mongoose";
 const mongoose = require("mongoose");
-const ItemWork = require("./itemSchema.js");
-const ItemToday = require("./itemSchema.js");
+
+const Item = require("./itemSchema.js");
 // import * as Item from "./itemSchema.js";
 
 const app = express();
@@ -18,94 +18,54 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://127.0.0.1:27017/todoListDB");
 
-app.get("/", async (req, res) => {
+app.get("/:view", async (req, res) => {
+  console.log(req.params.view);
+  const view = req.params.view;
   try {
-    const findTasksToday = await ItemToday.find({}, { content: 1 });
+    const findTasks = await Item.find({ category: `${view}` }, { content: 1 });
     // console.log(findTasksToday);
-    res.render("today.ejs", {
-      tasksToday: findTasksToday,
+    res.render(`${view}.ejs`, {
+      tasks: findTasks,
     });
   } catch (e) {
     console.log(e.message);
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/:view", async (req, res) => {
+  const view = req.params.view;
   try {
     const itemContent = req.body.todoInput;
-    const itemToday = await ItemToday.create({
+    const item = await Item.create({
       content: `${itemContent}`,
+      category: `${view}`,
     });
 
-    // DELETING EACH TASK ON TRASH BTN CLICK
-    if (req.body.delete) {
-      const id = req.body.delete;
-      console.log(req.body.delete);
-      // const item = await ItemToday.find({ _id: id });
-      // console.log(item);
-      await ItemToday.deleteOne({ _id: id });
-
-      // if (index > -1) {
-      //   // only splice array when item is found
-      //   tasksToday.splice(index, 1);
-      //   for (var i = 0; i < tasksToday.length; i++) {
-      //     if (tasksToday[i] === undefined) {
-      //       tasksToday.splice(i, 1);
-      //     }
-      //   }
-      // }
-    }
-
-    res.redirect("/");
+    res.redirect(`/${view}`);
   } catch (e) {
     console.log(e.message);
   }
 });
 
-app.get("/remove", (req, res) => {
-  res.render("today.ejs");
-});
-
-app.post("/remove", (req, res) => {
-  tasksToday = [];
-  res.redirect("/");
-});
-
-//  WORK SECTION
-
-app.get("/work", (req, res) => {
-  console.log(tasksWork);
-  res.render("work.ejs", {
-    tasksWork: tasksWork,
-  });
-});
-
-app.post("/work", (req, res) => {
-  tasksWork.push(req.body.todoInput);
-
-  // DELETING EACH TASK ON TRASH BTN CLICK
-  if (req.body.delete) {
-    const index = tasksWork.indexOf(req.body.delete);
-    if (index > -1) {
-      // only splice array when item is found
-      tasksWork.splice(index, 1);
-      for (var i = 0; i < tasksWork.length; i++) {
-        if (tasksWork[i] === undefined) {
-          tasksWork.splice(i, 1);
-        }
-      }
-    }
+app.post("/:view/deleteTask", async (req, res) => {
+  try {
+    console.log(req.body.delete);
+    const view = req.params.view;
+    const removeItem = await Item.findByIdAndDelete(req.body.delete);
+    res.redirect(`/${view}`);
+  } catch (e) {
+    console.log(e.message);
   }
-  res.redirect("/work");
 });
 
-app.get("/removeWork", (req, res) => {
-  res.render("work.ejs");
-});
-
-app.post("/removeWork", (req, res) => {
-  tasksWork = [];
-  res.redirect("/work");
+app.post("/:view/clearAll", async (req, res) => {
+  try {
+    const view = req.params.view;
+    const deleteItem = await Item.deleteMany({ category: `${view}` });
+    res.redirect(`/${view}`);
+  } catch (e) {
+    console.log(e.message);
+  }
 });
 
 app.listen(port, () => {
