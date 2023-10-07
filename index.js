@@ -14,7 +14,9 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://127.0.0.1:27017/todoListDB");
+mongoose.connect(
+  "mongodb+srv://piotrzmudzki47:KiroxBolt321@cluster0.elm2z66.mongodb.net/todoListDB"
+);
 
 app.get("/", (req, res) => {
   try {
