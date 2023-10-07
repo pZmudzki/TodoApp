@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.connect(
-  "mongodb+srv://piotrzmudzki47:KiroxBolt321@cluster0.elm2z66.mongodb.net/todoListDB"
+  "mongodb+srv://piotrzmudzki47:KDgckuyAIYXkVgO2@cluster0.elm2z66.mongodb.net/todoListDB"
 );
 
 app.get("/", (req, res) => {
