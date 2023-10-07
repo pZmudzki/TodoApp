@@ -11,15 +11,25 @@ const Item = require("./itemSchema.js");
 const app = express();
 const port = 3000;
 
-var tasksWork = [];
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.connect("mongodb://127.0.0.1:27017/todoListDB");
 
+app.get("/", (req, res) => {
+  try {
+    res.redirect("/today");
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
+app.get("/favicon.ico", (req, res) => {
+  return "your faveicon";
+});
+
 app.get("/:view", async (req, res) => {
-  console.log(req.params.view);
+  // console.log(req.params);
   const view = req.params.view;
   try {
     const findTasks = await Item.find({ category: `${view}` }, { content: 1 });
@@ -49,7 +59,7 @@ app.post("/:view", async (req, res) => {
 
 app.post("/:view/deleteTask", async (req, res) => {
   try {
-    console.log(req.body.delete);
+    // console.log(req.body.delete);
     const view = req.params.view;
     const removeItem = await Item.findByIdAndDelete(req.body.delete);
     res.redirect(`/${view}`);

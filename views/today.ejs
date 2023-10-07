@@ -23,9 +23,7 @@
       <% if(locals.tasks) {%> <% for(var i = 0; i< tasks.length; i++){ %> <%
       if(tasks[i] !== undefined) {%>
       <li class="element-listed">
-        <div class="element-description">
-          <p><%= tasks[i].content %></p>
-        </div>
+        <p class="element-description"><%= tasks[i].content %></p>
         <form action="/today/deleteTask" method="post">
           <button
             type="submit"
